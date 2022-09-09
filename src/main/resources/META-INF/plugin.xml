@@ -15,4 +15,29 @@
         <listener class="com.github.vacika.varman.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+    <actions>
+        <group
+                id="org.intellij.sdk.action.GroupedActions"
+                text="Bitbucket Integration"
+                popup="true">
+            <add-to-group
+                    group-id="MainMenu"
+                    anchor="after"
+                    relative-to-action="com.github.vacika.varman.actions.TestDialogAction"/>
+            <action
+                    class="com.github.vacika.varman.actions.BitBucketAuthenticationAction"
+                    id="org.intellij.sdk.action.GroupPopDialogAction"
+                    text="Authenticate"
+                    description="Action for authentication on BitBucket">
+            </action>
+            <action
+                    class="com.github.vacika.varman.actions.EnvironmentVariablesAddingAction"
+                    id="org.intellij.sdk.action.AddVariablesAction"
+                    text="Add Variable"
+                    description="Action for adding variables">
+            </action>
+        </group>
+    </actions>
+
 </idea-plugin>
