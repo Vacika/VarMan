@@ -37,6 +37,20 @@
                     text="Add Variable"
                     description="Action for adding variables">
             </action>
+
+            <action
+                    class="com.github.vacika.varman.actions.ListEnvironmentsAction"
+                    id="org.intellij.sdk.action.ListEnvironmentsAction"
+                    text="List Environments"
+                    description="Action for Listing Environments">
+            </action>
+
+            <action
+                    class="com.github.vacika.varman.actions.ListEnvironmentVariables"
+                    id="org.intellij.sdk.action.ListEnvironmentVariables"
+                    text="List Variable"
+                    description="Action for Listing Environment Variables">
+            </action>
         </group>
     </actions>
 
