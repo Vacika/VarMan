@@ -6,7 +6,6 @@ import com.intellij.uiDesigner.core.AbstractLayout
 import com.intellij.util.ui.GridBag
 import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.UIUtil
-import java.awt.Button
 import java.awt.Dimension
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout

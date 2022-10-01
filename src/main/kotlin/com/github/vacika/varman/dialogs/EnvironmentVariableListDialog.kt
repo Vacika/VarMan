@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
+import javax.swing.JTable
 
 class EnvironmentVariableListDialog(val environment: String) : DialogWrapper(true) {
     val panel = JPanel(GridBagLayout())
@@ -22,9 +23,9 @@ class EnvironmentVariableListDialog(val environment: String) : DialogWrapper(tru
 
     override fun createCenterPanel(): JComponent? {
         val gb = GridBag()
-                .setDefaultInsets(0, 0, AbstractLayout.DEFAULT_VGAP, AbstractLayout.DEFAULT_HGAP)
-                .setDefaultWeightX(1.0)
-                .setDefaultFill(GridBagConstraints.HORIZONTAL)
+            .setDefaultInsets(0, 0, AbstractLayout.DEFAULT_VGAP, AbstractLayout.DEFAULT_HGAP)
+            .setDefaultWeightX(1.0)
+            .setDefaultFill(GridBagConstraints.HORIZONTAL)
 
         val envVars = fetchEnvironmentVariables(environment)
         panel.preferredSize = Dimension(400, 200)
@@ -34,6 +35,19 @@ class EnvironmentVariableListDialog(val environment: String) : DialogWrapper(tru
             panel.add(label(envVar.value), gb.nextLine().next().weightx(0.2))
         }
         return panel
+    }
+
+    fun createTable(): JTable {
+        val columnNames = arrayOf("Key", "Value")
+        val data = arrayOf(
+            arrayOf<Any>("DEPLOYMENT_ENV", "DEV"),
+            arrayOf<Any>("K8S_CLUSTER_NAME", "n47-gke-cluster-dev"),
+            arrayOf<Any>("K8S_CLUSTER_ZONE", "europe-west3-a"),
+            arrayOf("SLACK_TOKEN", "12tsk2s51sknsbdga0")
+        )
+        val table = JTable(data, columnNames)
+        table.fillsViewportHeight = true
+        return table
     }
 
     private fun fetchEnvironmentVariables(environment: String): Map<String, String> {
