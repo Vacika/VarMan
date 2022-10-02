@@ -9,6 +9,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.vacika.varman.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.vacika.varman.services.MyProjectService"/>
+        <toolWindow id="Sample Calendar" secondary="true" icon="AllIcons.General.Modified" anchor="right"
+                    factoryClass="com.github.vacika.varman.test.MyToolWindowFactory"/>
     </extensions>
 
     <applicationListeners>
@@ -19,7 +21,7 @@
     <actions>
         <group
                 id="org.intellij.sdk.action.GroupedActions"
-                text="Bitbucket Integration"
+                text="VarMan"
                 popup="true">
             <add-to-group
                     group-id="MainMenu"

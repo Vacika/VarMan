@@ -84,7 +84,6 @@ class EnvironmentListDialog : DialogWrapper(true) {
     }
 
     private fun fetchEnvironments(): List<String> {
-
         val request = Request.Builder()
                 .get()
                 .url(String.format(environmentsURL, projectConfig.first, projectConfig.second))
