@@ -1,3 +1,42 @@
+**Useful information:** <br/>
+<ul>
+<li>List variables for environment:<pre>
+https://api.bitbucket.org/2.0/repositories/{workspace}/{repo_slug}/deployments_config/environments/{environment_uuid}/variables</pre> </li>
+<li>List environments:<pre> https://api.bitbucket.org/2.0/repositories/{workspace}/{repo_slug}/environments/</pre></li>
+<li>Create variable:
+<pre>curl --request POST \
+  --url 'https://api.bitbucket.org/2.0/repositories/{workspace}/{repo_slug}/deployments_config/environments/{environment_uuid}/variables' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "type": "<string>",
+  "uuid": "<string>",
+  "key": "<string>",
+  "value": "<string>",
+  "secured": true
+}'
+</pre>
+<li>Delete a variable:<pre>
+curl --request DELETE \
+  --url 'https://api.bitbucket.org/2.0/repositories/{workspace}/{repo_slug}/deployments_config/environments/{environment_uuid}/variables/{variable_uuid}'
+</pre></li>
+
+</li>
+<li>Update Variable: <pre>curl --request PUT \
+  --url 'https://api.bitbucket.org/2.0/repositories/{workspace}/{repo_slug}/deployments_config/environments/{environment_uuid}/variables/{variable_uuid}' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "type": "<string>",
+  "uuid": "<string>",
+  "key": "<string>",
+  "value": "<string>",
+  "secured": true
+}
+</pre></li>
+
+</ul>
+
 # VarMan
 
 ![Build](https://github.com/Vacika/VarMan/workflows/Build/badge.svg)
@@ -19,16 +58,16 @@ This Fancy IntelliJ Platform Plugin is going to be your implementation of the br
 
 This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
+To keep everything working, do not remove `<!-- ... -->` sections.
 <!-- Plugin description end -->
 
 ## Installation
 
 - Using IDE built-in plugin system:
-  
+
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "VarMan"</kbd> >
   <kbd>Install Plugin</kbd>
-  
+
 - Manually:
 
   Download the [latest release](https://github.com/Vacika/VarMan/releases/latest) and install it manually using

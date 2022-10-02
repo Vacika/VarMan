@@ -24,33 +24,40 @@
             <add-to-group
                     group-id="MainMenu"
                     anchor="after"
-                    relative-to-action="com.github.vacika.varman.actions.TestDialogAction"/>
+                    relative-to-action="org.intellij.sdk.action.GroupedActions"/>
             <action
                     class="com.github.vacika.varman.actions.BitBucketAuthenticationAction"
-                    id="org.intellij.sdk.action.GroupPopDialogAction"
+                    id="org.intellij.sdk.action.BitBucketAuthenticationAction"
                     text="Authenticate"
                     description="Action for authentication on BitBucket">
             </action>
+
             <action
-                    class="com.github.vacika.varman.actions.EnvironmentVariablesAddingAction"
-                    id="org.intellij.sdk.action.AddVariablesAction"
-                    text="Add Variable"
-                    description="Action for adding variables">
+                    class="com.github.vacika.varman.actions.BitBucketConfigurationAction"
+                    id="org.intellij.sdk.action.BitbucketConfigurationAction"
+                    text="Project Configuration"
+                    description="Configure Project settings">
             </action>
+<!--            <action-->
+<!--                    class="com.github.vacika.varman.actions.EnvironmentVariablesAddingAction"-->
+<!--                    id="org.intellij.sdk.action.AddVariablesAction"-->
+<!--                    text="Add Variable"-->
+<!--                    description="Action for adding variables">-->
+<!--            </action>-->
 
             <action
                     class="com.github.vacika.varman.actions.ListEnvironmentsAction"
                     id="org.intellij.sdk.action.ListEnvironmentsAction"
                     text="List Environments"
-                    description="Action for Listing Environments">
+                    description="Action for listing environments">
             </action>
 
-            <action
-                    class="com.github.vacika.varman.actions.ListEnvironmentVariables"
-                    id="org.intellij.sdk.action.ListEnvironmentVariables"
-                    text="List Variable"
-                    description="Action for Listing Environment Variables">
-            </action>
+<!--            <action-->
+<!--                    class="com.github.vacika.varman.actions.ListEnvironmentVariables"-->
+<!--                    id="org.intellij.sdk.action.ListEnvironmentVariables"-->
+<!--                    text="List Variable"-->
+<!--                    description="Action for Listing Environment Variables">-->
+<!--            </action>-->
         </group>
     </actions>
 
