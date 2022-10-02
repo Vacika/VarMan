@@ -2,16 +2,18 @@ package com.github.vacika.varman.util
 
 import com.github.vacika.varman.constants.URLConstants.Companion.deleteEnvironmentUrl
 import com.github.vacika.varman.constants.URLConstants.Companion.deleteVariablesURL
-import com.github.vacika.varman.constants.URLConstants.Companion.fetchEnvironmentsUrl
+import com.github.vacika.varman.constants.URLConstants.Companion.addOrFetchEnvironmentsUrl
 import com.github.vacika.varman.constants.URLConstants.Companion.fetchUserInfoUrl
-import com.github.vacika.varman.constants.URLConstants.Companion.fetchVariablesURL
+import com.github.vacika.varman.constants.URLConstants.Companion.addOrFetchVariablesURL
 import com.github.vacika.varman.model.EnvironmentResponse
 import com.github.vacika.varman.model.EnvironmentVariableResponse
 import com.github.vacika.varman.util.HTTPHelper.Companion.buildAuthHeader
 import com.google.gson.Gson
+import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+import java.util.*
 
 class BitbucketService {
 
@@ -35,7 +37,7 @@ class BitbucketService {
             val projectConfig = CredentialManager.retrieveProjectConfig()
             val request = Request.Builder()
                     .get()
-                    .url(String.format(fetchEnvironmentsUrl, projectConfig.first, projectConfig.second))
+                    .url(String.format(addOrFetchEnvironmentsUrl, projectConfig.first, projectConfig.second))
                     .build()
             val responseBody = client.newCall(request).execute()
             if (!responseBody.isSuccessful) {
@@ -56,7 +58,7 @@ class BitbucketService {
             val bitbucketCredentials = CredentialManager.retrieveBitbucketCredentials()
             val request = Request.Builder()
                     .get()
-                    .url(String.format(fetchEnvironmentsUrl, workspace, repository))
+                    .url(String.format(addOrFetchEnvironmentsUrl, workspace, repository))
                     .headers(buildAuthHeader(bitbucketCredentials.first, bitbucketCredentials.second))
                     .build()
 
@@ -76,13 +78,13 @@ class BitbucketService {
             val request = Request.Builder()
                     .get()
                     .headers(buildAuthHeader(bitbucketCredentials.first, bitbucketCredentials.second))
-                    .url(String.format(fetchVariablesURL, projectConfig.first, projectConfig.second, environmentUUID))
+                    .url(String.format(addOrFetchVariablesURL, projectConfig.first, projectConfig.second, environmentUUID))
                     .build()
             val responseBody = client.newCall(request).execute()
             if (!responseBody.isSuccessful) {
                 throw IOException("Unexpected code ${responseBody.body}")
             }
-            return gson.fromJson(responseBody.body!!.string(), EnvironmentVariableResponse::class.java).also{ response ->
+            return gson.fromJson(responseBody.body!!.string(), EnvironmentVariableResponse::class.java).also { response ->
                 println("Environment Variables fetched ${response.values.joinToString { it.key.plus(":").plus(it.value) }}")
             }
         }
@@ -100,6 +102,46 @@ class BitbucketService {
                 throw IOException("Unexpected code ${responseBody.body}")
             }
             println("Environment Variable deleted successfully")
+        }
+
+        fun addEnvironment(environmentName: String, type: String) {
+            val bitbucketCredentials = CredentialManager.retrieveBitbucketCredentials()
+            val projectConfig = CredentialManager.retrieveProjectConfig()
+            val request = Request.Builder()
+                    .post(FormBody.Builder()
+                            .add("uuid", UUID.randomUUID().toString())
+                            .add("name", environmentName)
+                            .add("type", type)
+                            .build())
+                    .headers(buildAuthHeader(bitbucketCredentials.first, bitbucketCredentials.second))
+                    .url(String.format(addOrFetchEnvironmentsUrl, projectConfig.first, projectConfig.second))
+                    .build()
+            val responseBody = client.newCall(request).execute()
+            if (responseBody.code != 201) {
+                throw IOException("Unexpected code ${responseBody.body}")
+            }
+            println("Environment added successfully")
+        }
+
+        fun addVariable(key: String, value: String, type: String, secured: Boolean, environmentUUID: String) {
+            val bitbucketCredentials = CredentialManager.retrieveBitbucketCredentials()
+            val projectConfig = CredentialManager.retrieveProjectConfig()
+            val request = Request.Builder()
+                    .post(FormBody.Builder()
+                            .add("uuid", UUID.randomUUID().toString())
+                            .add("key", key)
+                            .add("value", value)
+                            .add("secured", secured.toString())
+                            .add("type", type)
+                            .build())
+                    .headers(buildAuthHeader(bitbucketCredentials.first, bitbucketCredentials.second))
+                    .url(String.format(addOrFetchVariablesURL, projectConfig.first, projectConfig.second, environmentUUID))
+                    .build()
+            val responseBody = client.newCall(request).execute()
+            if (responseBody.code != 201) {
+                throw IOException("Unexpected code ${responseBody.body}")
+            }
+            println("Variable added successfully")
         }
 
         fun deleteEnvironment(environmentUUID: String) {
