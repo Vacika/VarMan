@@ -9,58 +9,12 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.vacika.varman.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.vacika.varman.services.MyProjectService"/>
-        <toolWindow id="Sample Calendar" secondary="true" icon="AllIcons.General.Modified" anchor="right"
-                    factoryClass="com.github.vacika.varman.test.MyToolWindowFactory"/>
+        <toolWindow id="VarMan" secondary="true" icon="AllIcons.General.Modified" anchor="right"
+                    factoryClass="com.github.vacika.varman.tool_window.MyToolWindowFactory"/>
     </extensions>
 
     <applicationListeners>
         <listener class="com.github.vacika.varman.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
-
-    <actions>
-        <group
-                id="org.intellij.sdk.action.GroupedActions"
-                text="VarMan"
-                popup="true">
-            <add-to-group
-                    group-id="MainMenu"
-                    anchor="after"
-                    relative-to-action="org.intellij.sdk.action.GroupedActions"/>
-            <action
-                    class="com.github.vacika.varman.actions.BitBucketAuthenticationAction"
-                    id="org.intellij.sdk.action.BitBucketAuthenticationAction"
-                    text="Authenticate"
-                    description="Action for authentication on BitBucket">
-            </action>
-
-            <action
-                    class="com.github.vacika.varman.actions.BitBucketConfigurationAction"
-                    id="org.intellij.sdk.action.BitbucketConfigurationAction"
-                    text="Project Configuration"
-                    description="Configure Project settings">
-            </action>
-<!--            <action-->
-<!--                    class="com.github.vacika.varman.actions.EnvironmentVariablesAddingAction"-->
-<!--                    id="org.intellij.sdk.action.AddVariablesAction"-->
-<!--                    text="Add Variable"-->
-<!--                    description="Action for adding variables">-->
-<!--            </action>-->
-
-            <action
-                    class="com.github.vacika.varman.actions.ListEnvironmentsAction"
-                    id="org.intellij.sdk.action.ListEnvironmentsAction"
-                    text="List Environments"
-                    description="Action for listing environments">
-            </action>
-
-<!--            <action-->
-<!--                    class="com.github.vacika.varman.actions.ListEnvironmentVariables"-->
-<!--                    id="org.intellij.sdk.action.ListEnvironmentVariables"-->
-<!--                    text="List Variable"-->
-<!--                    description="Action for Listing Environment Variables">-->
-<!--            </action>-->
-        </group>
-    </actions>
-
 </idea-plugin>

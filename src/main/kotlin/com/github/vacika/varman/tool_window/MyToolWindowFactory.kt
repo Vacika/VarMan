@@ -1,4 +1,4 @@
-package com.github.vacika.varman.test
+package com.github.vacika.varman.tool_window
 
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.content.ContentFactory
@@ -17,7 +17,7 @@ class MyToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(@NotNull project: Project, @NotNull toolWindow: ToolWindow) {
         val myToolWindow = VarManToolWindow(toolWindow)
         val contentFactory = ContentFactory.SERVICE.getInstance()
-        val content: Content = contentFactory.createContent(myToolWindow.getContentPanel(), "", false)
+        val content: Content = contentFactory.createContent(myToolWindow.getContentPanel(), "VarMan", false)
         toolWindow.getContentManager().addContent(content)
     }
 }

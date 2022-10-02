@@ -1,6 +1,5 @@
 package com.github.vacika.varman.dialogs
 
-import com.github.vacika.varman.util.CredentialManager
 import com.github.vacika.varman.util.CredentialManager.Companion.retrieveBitbucketCredentials
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ui.components.JBLabel
@@ -16,16 +15,15 @@ import javax.swing.JPanel
 import javax.swing.JPasswordField
 import javax.swing.JTextField
 
+
 class BitBucketAuthenticationDialog : DialogWrapper(true) {
     val panel = JPanel(GridBagLayout())
     val username = JTextField()
     val password = JPasswordField()
-    val projectName = JTextField()
-    val repositoryName = JTextField()
 
     init {
         init()
-        title = "Project Configuration"
+        title = "Authentication"
     }
 
     override fun createCenterPanel(): JComponent {
@@ -41,7 +39,6 @@ class BitBucketAuthenticationDialog : DialogWrapper(true) {
             panel.add(createTextLabel("You are already logged in as $loggedUser."), gb.nextLine().next().weightx(0.2))
             panel.add(createTextLabel("If you wish to switch users, just enter the new credentials below."), gb.nextLine().next().weightx(0.2))
         } catch (_: RuntimeException) {
-
         }
         panel.add(createTextLabel("Username (not email)"), gb.nextLine().next().weightx(0.2))
         panel.add(username, gb.nextLine().next().weightx(0.8))
